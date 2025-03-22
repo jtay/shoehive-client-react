@@ -1,0 +1,36 @@
+{
+  "name": "shoehive-react-client",
+  "version": "0.1.0",
+  "description": "React client for Shoehive game servers",
+  "main": "dist/index.js",
+  "dependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "shoehive": "^0.6.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "test": "jest"
+  },
+  "keywords": [
+    "shoehive",
+    "react",
+    "websocket",
+    "game",
+    "client"
+  ],
+  "author": "",
+  "license": "MIT"
+}
