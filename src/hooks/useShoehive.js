@@ -1,14 +1,16 @@
 import { useContext } from 'react';
-import ShoehiveContext from './ShoehiveContext';
+import ShoehiveContext from '../context/ShoehiveContext';
 
 /**
- * Hook to use Shoehive client in React components
+ * Custom hook for accessing Shoehive client and state
  */
-export const useShoehive = () => {
+const useShoehive = () => {
   const context = useContext(ShoehiveContext);
+  
   if (!context) {
     throw new Error('useShoehive must be used within a ShoehiveProvider');
   }
+  
   return context;
 };
 

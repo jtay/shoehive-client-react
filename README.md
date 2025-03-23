@@ -20,7 +20,7 @@ yarn add shoehive-react-client
 
 ```javascript
 import React from 'react';
-import { ShoehiveProvider, useShoehive } from 'shoehive-client';
+import { ShoehiveProvider, useShoehive } from 'shoehive-react-client';
 
 // Wrap your app with the provider
 function App() {
@@ -131,7 +131,7 @@ const {
 For advanced usage, you can use the `ShoehiveClient` class directly without the React integration. This is useful for non-React applications or for custom integration.
 
 ```javascript
-import { ShoehiveClient } from 'shoehive-client';
+import { ShoehiveClient, CLIENT_COMMAND_TYPES } from 'shoehive-react-client';
 
 // Create client instance
 const client = new ShoehiveClient('wss://your-shoehive-server.com', {
@@ -150,10 +150,13 @@ client.connect();
 client.on('connected', () => console.log('Connected!'));
 client.on('playerState', (state) => console.log('Player state:', state));
 
-// Send commands
+// Send commands using constants
 client.joinTable('table-123');
 client.sitAtSeat(2);
 client.sendGameCommand('play-card', { cardId: 'ace-spades' });
+
+// Or use constants directly
+client.sendCommand(CLIENT_COMMAND_TYPES.TABLE_LEAVE);
 
 // Disconnect when done
 client.disconnect();
@@ -161,15 +164,16 @@ client.disconnect();
 
 ## 📄 Constants
 
-ShoehiveJS provides several constants for use with the client:
+ShoehiveJS provides several constants for use with the client, leveraging the constants from the Shoehive package:
 
 ```javascript
 import { 
   CLIENT_COMMAND_TYPES, 
   CLIENT_MESSAGE_TYPES,
   CLIENT_ERROR_TYPES,
-  CONNECTION_STATES 
-} from 'shoehive-client';
+  CONNECTION_STATES,
+  EVENTS
+} from 'shoehive-react-client';
 
 // Example: Send a command using constant
 client.sendCommand(CLIENT_COMMAND_TYPES.TABLE_LEAVE);
@@ -178,6 +182,11 @@ client.sendCommand(CLIENT_COMMAND_TYPES.TABLE_LEAVE);
 if (message.type === CLIENT_MESSAGE_TYPES.LOBBY_STATE) {
   // Handle lobby state update
 }
+
+// Example: Listen for connection events
+client.on(EVENTS.CONNECTED, () => {
+  console.log('Connected to server!');
+});
 ```
 
 ## 📡 Events
@@ -198,8 +207,10 @@ useEffect(() => {
   return removeListener;
 }, [on]);
 
-// Or using the client directly
-client.on('tableState', (state) => {
+// Or using the client directly with constants
+import { CLIENT_MESSAGE_TYPES } from 'shoehive-react-client';
+
+client.on(CLIENT_MESSAGE_TYPES.TABLE_STATE, (state) => {
   console.log('Table state updated:', state);
 });
 ```
@@ -226,6 +237,10 @@ const authStrategy = () => ({
   }
 });
 ```
+
+## 📄 Dependencies
+
+This library has a peer dependency on React (^16.8.0 or higher) and requires the `shoehive` package, which provides the core constants and types used throughout the client.
 
 ## 📄 License
 
